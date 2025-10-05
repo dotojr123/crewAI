@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "panel/api/main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "panel/ui/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "panel/api/main.py"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/panel/ui/dist/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/panel/ui/dist/index.html"
+    }
+  ]
+}
